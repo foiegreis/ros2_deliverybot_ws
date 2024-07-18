@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- LINKS ===========================================================-->
+
+    <link name="base_link" />
+
+    <!-- Body link -->
+    <link name="body_link">
+        <xacro:body_inertial/>
+        <visual>
+            <geometry>
+                <mesh filename="package://deliverybot_description/meshes/deliverybot_body.obj" scale="1 1 1" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://deliverybot_description/meshes/deliverybot_body_collision.stl" scale="1 1 1"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </collision>
+    </link>
+
+    <!-- Steering links -->
+      <link name="steering_left_link">
+        <xacro:steering_inertial/>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.0001" radius="0.0001" />
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="steering_right_link">
+        <xacro:steering_inertial/>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.0001" radius="0.0001" />
+            </geometry>
+        </visual>
+    </link>
+
+    <!-- Front Wheels Links -->
+    <link name="wheel_front_left_link">
+        <xacro:wheel_left_inertial/>
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://deliverybot_description/meshes/deliverybot_wheel_left.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1869477" radius="0.226428"/>
+            </geometry>
+        </collision>
+    </link>
+        
+
+    <link name="wheel_front_right_link">
+        <xacro:wheel_right_inertial/>
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://deliverybot_description/meshes/deliverybot_wheel_right.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1869477" radius="0.226428"/>
+            </geometry>
+       </collision>
+    </link>
+
+    <!--Rear Wheels Links -->
+    <link name="wheel_rear_left_link">
+        <xacro:wheel_left_inertial/>
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://deliverybot_description/meshes/deliverybot_wheel_left.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1869477" radius="0.226428"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="wheel_rear_right_link">
+        <xacro:wheel_right_inertial/>
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://deliverybot_description/meshes/deliverybot_wheel_right.obj" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1869477" radius="0.226428"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- JOINTS =================================================================-->
+
+    <joint name="base_body_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="body_link" />
+        <origin xyz="0 0 ${body_offset_z}" rpy="0 0 0" />
+    </joint>
+
+     <!-- Steering joints-->
+     <joint name="steering_left_joint" type="revolute">
+        <parent link="body_link" />
+        <child link="steering_left_link" />
+        <origin xyz="${front_offset_x} ${left_offset_y} ${body_wheels_offset_z}" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit 
+            lower="${-PI/4}" 
+            upper="${PI/4}" 
+            effort="${steering_effort_limit}" 
+            velocity="${steering_velocity_limit}" />
+    </joint>
+
+    <joint name="steering_right_joint" type="revolute">
+        <parent link="body_link" />
+        <child link="steering_right_link" />
+        <origin xyz="${front_offset_x} ${right_offset_y} ${body_wheels_offset_z}" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit 
+            lower="${-PI/4}" 
+            upper="${PI/4}" 
+            effort="${steering_effort_limit}" 
+            velocity="${steering_velocity_limit}" />
+        </joint>
+
+    <!--Front Wheels Joints -->
+    <joint name="wheel_front_left_joint" type="continuous">
+        <parent link="steering_left_link"/>
+        <child link="wheel_front_left_link" />
+        <origin xyz="0 ${left_offset_from_steer_y} 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0" />
+        <limit 
+            effort="${wheel_effort_limit}" 
+            velocity="${wheel_velocity_limit}"/>
+        
+    </joint>
+
+    <joint name="wheel_front_right_joint" type="continuous">
+        <parent link="steering_right_link"/>
+        <child link="wheel_front_right_link" />
+        <origin xyz="0 ${right_offset_from_steer_y} 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0" />
+        <limit 
+            effort="${wheel_effort_limit}" 
+            velocity="${wheel_velocity_limit}"/>
+    </joint>
+
+    <!--  Rear Wheels Joints -->
+    <joint name="wheel_rear_left_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="wheel_rear_left_link" />
+        <origin xyz="${rear_offset_x} ${left_offset_y} ${body_wheels_offset_z}" rpy="0 0 0"/>
+        <axis xyz="0 1 0" />
+        <limit 
+            effort="${wheel_effort_limit}" 
+            velocity="${wheel_velocity_limit}"/>
+    </joint>
+
+    <joint name="wheel_rear_right_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="wheel_rear_right_link" />
+        <origin xyz="${rear_offset_x} ${right_offset_y} ${body_wheels_offset_z}" rpy="0 0 0"/>
+        <axis xyz="0 1 0" />
+        <limit 
+            effort="${wheel_effort_limit}" 
+            velocity="${wheel_velocity_limit}"/>
+    </joint>
+
+
+
+</robot>

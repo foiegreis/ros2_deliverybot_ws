@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+
+    <!-- Gazebo friction and materials 
+    - mu1  friction in the direction of motion
+    - mu2  friction in the direction perpendicular to motion
+    - kp  spring stiffness (surface penetration coeff). High value = no penetration, stiff surface
+    - kd  damping coefficient. Controls the damping of the contact response or joint movement
+    - fdir1  friction direction. Primary direction of the frictional force (direction of the motion)
+    -->
+
+    <!-- Flag to visualize the robot meshes -->
+    <xacro:property name="visualize_meshes_gazebo" value="true" />
+
+  
+
+    <gazebo reference="body_link">
+      <mu1 value="0.0" />
+      <mu2 value="0.0" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <xacro:unless value="${visualize_meshes_gazebo}">
+        <material>Gazebo/White</material>
+      </xacro:unless>
+    </gazebo>
+
+
+    <gazebo reference="wheel_front_left_link">
+      <mu1 value="${mu1}" />
+      <mu2 value="${mu2}" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0" />
+      <xacro:unless value="${visualize_meshes_gazebo}">
+        <material>Gazebo/Grey</material>
+      </xacro:unless>
+
+    </gazebo>
+  
+    <gazebo reference="wheel_front_right_link">
+      <mu1 value="${mu1}" />
+      <mu2 value="${mu2}" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0" />
+      <xacro:unless value="${visualize_meshes_gazebo}">
+        <material>Gazebo/Grey</material>
+      </xacro:unless>
+
+    </gazebo>
+    
+    <gazebo reference="wheel_rear_left_link">
+      <mu1 value="${mu1}" />
+      <mu2 value="${mu2}" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0" />
+      <xacro:unless value="${visualize_meshes_gazebo}">
+        <material>Gazebo/Grey</material>
+      </xacro:unless>
+    </gazebo>
+  
+    <gazebo reference="wheel_rear_right_link">
+      <mu1 value="${mu1}" />
+      <mu2 value="${mu2}" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0" />
+      <xacro:unless value="${visualize_meshes_gazebo}">
+        <material>Gazebo/Grey</material>
+      </xacro:unless>
+    </gazebo>
+  
+  <!-- Actuator configurations -->
+<!--   <transmission name="steering_left_transmission" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="steering_left_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="steering_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="steering_right_transmission" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="steering_right_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="steering_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="rear_left_transmission" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_rear_left_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="rear_right_transmission" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_rear_right_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_right_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>  -->
+
+
+</robot>

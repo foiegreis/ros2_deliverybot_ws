@@ -1,0 +1,49 @@
+MEASURES ----------------------------------------------------------------
+
+body_offset_z: 0.802
+
+wheel_radius: 0.226428
+wheel_diameter: 0.452856
+
+front_offset_x: 0.31398 
+rear_offset_x: -0.354123 
+
+left_offset_y: 0.68502 
+right_offset_y: -0.68502 
+wheel_separation: 1.37004
+
+body_wheels_offset_z: -0.571468
+
+wheelbase: 0.668123 # Distance between the front and rear wheels of the robot
+front_wheel_track: 1.37004 # Distance between the left and right front wheels
+rear_wheel_track:  1.37004 #  Distance between the left and right rear wheels
+front_wheels_radius: 0.226428 
+rear_wheels_radius: 0.226428 
+
+
+INERTIA -------------------------------------------------------------------
+
+DELIVERYBOT_BODY
+
+Inertia Tensor (Ixx, Iyy, Izz, Ixy, Ixz, Iyz):
+[197.9644035402808, 214.31325562158773, 235.7642298262934, -1.9097414111524087, -0.1499079161071719, 0.24907860474737206]
+Volume Mass: 21.828734672527542
+Center of Mass: <Vector (-0.0055, -0.0002, -0.0014)>
+
+
+WHEEL_RIGHT
+
+Inertia Tensor (Ixx, Iyy, Izz, Ixy, Ixz, Iyz):
+[0.020308287959069787, 0.03254024147887489, 0.020311650001045952, -3.1652907214044164e-05, -4.761503015046567e-06, 1.633153548393926e-05]
+Volume Mass: 1.0849836721479293
+Center of Mass: <Vector (-0.0008, 0.0029, 0.0001)>
+
+
+WHEEL_LEFT
+
+Inertia Tensor (Ixx, Iyy, Izz, Ixy, Ixz, Iyz):
+[0.020308291359562095, 0.03254024843582306, 0.020311657635964597, -3.165628241005953e-05, 4.75787312683895e-06, -1.6328662595837518e-05]
+Volume Mass: 1.084983714848435
+Center of Mass: <Vector (0.0008, -0.0029, 0.0001)>
+
+

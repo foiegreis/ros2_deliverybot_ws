@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Variables -->
+    <xacro:property name="PI" value="3.14"/>
+    
+    <!-- chassis position-->
+    <xacro:property name="body_offset_z" value="0.802"/>
+
+    <!-- wheels properties -->
+    <xacro:property name="wheel_radius" value="0.226428"/> 
+    <xacro:property name="wheel_diameter" value="0.452856"/> 
+    <xacro:property name="wheel_separation_y" value="1.353834"/> 
+    <xacro:property name="wheel_mass" value="2.26428" />
+    <xacro:property name="wheel_length" value="0.1869477" />
+
+  
+    <xacro:property name="front_offset_x" value="0.31398"/> 
+    <xacro:property name="rear_offset_x" value="-0.354123"/> 
+    <xacro:property name="left_offset_y" value="0.676917"/>  
+    <xacro:property name="right_offset_y" value="-0.676917"/>
+    <xacro:property name="left_offset_from_steer_y" value="0.03"/>  
+    <xacro:property name="right_offset_from_steer_y" value="-0.03"/>  
+    <xacro:property name="body_wheels_offset_z" value="-0.571468"/> 
+
+    <!-- Ackermann plugin -->
+    <xacro:property name="wheelbase_x" value="0.663378"/> 
+    <xacro:property name="front_wheel_track_y" value="1.353834"/> 
+    <xacro:property name="rear_wheel_track_y" value="1.353834"/> 
+    <xacro:property name="front_wheels_radius" value="${wheel_radius}"/> 
+    <xacro:property name="rear_wheels_radius" value="${wheel_radius}"/> 
+    
+
+    <xacro:property name="steering_effort_limit" value="5.0"/>
+    <xacro:property name="steering_velocity_limit" value="1000.0"/>
+
+    <xacro:property name="wheel_effort_limit" value="10.0"/>
+    <xacro:property name="wheel_velocity_limit" value="1000.0"/>
+
+    <xacro:property name="damping" value="0.0"/>
+    <xacro:property name="friction" value="2.0"/>
+
+    <xacro:property name="mu1" value="10.0" />
+    <xacro:property name="mu2" value="8.0" />
+
+    <!-- RVIZ Materials -->
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+    <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+    <material name="anthracite">
+        <color rgba="0.219 0.2431 0.2588 1"/>
+    </material>
+    
+</robot>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+
+    <!-- Plugin for ROS2 CONTROL -->
+    <gazebo>
+        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+            <robot_param>robot_description</robot_param>
+            <robot_param_node>robot_state_publisher</robot_param_node>
+        <parameters>$(find deliverybot_controllers)/config/ackermann_controllers_config.yaml</parameters>
+        <ros> 
+            <remapping>ackermann_steering_controller/reference:=cmd_vel_stamped</remapping>
+            <remapping>ackermann_steering_controller/odometry:=odom</remapping>
+            <remapping>ackermann_steering_controller/tf_odometry:=tf</remapping>
+            <robot_base_frame>base_link</robot_base_frame>
+
+          </ros> 
+        </plugin>
+    </gazebo>
+
+    <!-- Ros2 control -->
+    <ros2_control name="GazeboSystem" type="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+        
+        <!-- Steering wheels -->
+        <joint name="steering_left_joint">
+            <command_interface name="position">
+                <param name="min">${-PI/4}</param>
+                <param name="max">${PI/4}</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="steering_right_joint">
+            <command_interface name="position">
+                <param name="min">${-PI/4}</param>
+                <param name="max">${PI/4}</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <!-- Rear wheels -->
+        <joint name="wheel_rear_left_joint">
+            <command_interface name="velocity">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="wheel_rear_right_joint">
+            <command_interface name="velocity">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <!-- Front wheels -->
+        <joint name="wheel_front_left_joint">
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="wheel_front_right_joint">
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+       
+
+
+    </ros2_control>
+
+</robot>

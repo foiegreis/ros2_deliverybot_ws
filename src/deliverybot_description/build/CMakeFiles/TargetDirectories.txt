@@ -1,0 +1,9 @@
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/uninstall.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/deliverybot_description_uninstall.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/test.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/edit_cache.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/rebuild_cache.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/list_install_components.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/install.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/install/local.dir
+/home/foiegreis/ros2_deliverybot_ws/src/deliverybot_description/build/CMakeFiles/install/strip.dir

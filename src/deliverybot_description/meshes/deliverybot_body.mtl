@@ -1,0 +1,24 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl Material.003
+Ns 834.731443
+Ka 0.240909 0.240909 0.240909
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.100000
+d 1.000000
+illum 3
+map_Kd delivery_bot_chassis_uv_texture2.png
+
+newmtl Material.005
+Ns 834.731443
+Ka 0.240909 0.240909 0.240909
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd white.jpg

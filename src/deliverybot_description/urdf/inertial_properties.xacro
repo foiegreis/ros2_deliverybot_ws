@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="body_inertial">
+      <inertial>
+        <origin xyz="-0.0055 -0.0002 -0.0014" rpy="0.0 0.0 0.0"/>
+        
+        <mass value="21.828734672527542"/>
+        <inertia 
+          ixx="197.9644035402808" 
+          ixy="-1.9097414111524087" 
+          ixz="-0.1499079161071719" 
+          iyy="214.31325562158773" 
+          iyz="0.24907860474737206" 
+          izz="235.7642298262934"/>
+      </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="steering_inertial">
+    <inertial>
+      <mass value="0.25"/>
+      <inertia 
+            ixx="0.001" 
+            ixy="0" 
+            ixz="0" 
+            iyy="0.001" 
+            iyz="0" 
+            izz="0.001"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertial" params="m r l xyz rpy">
+    <inertial>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+        <mass value="${m}" />
+        <inertia ixx="${(m/12)*(3*r*r+l*l)}" ixy="0" ixz="0" 
+                  iyy="${(m/12)*(3*r*r+l*l)}" iyz="0"
+                  izz="${(m*r*r)/2}" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- from cylinder inertial -->
+  <xacro:macro name="wheel_right_inertial">
+    <inertial>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+    <mass value="2.26428"/>
+    <inertia ixx="0.142467259859483" ixy="0" ixz="0" iyy="0.142467259859483" iyz="0" izz="0.232177637223095"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="wheel_left_inertial">
+    <inertial>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <mass value="2.26428"/>
+      <inertia ixx="0.142467259859483" ixy="0" ixz="0" iyy="0.142467259859483" iyz="0" izz="0.232177637223095"/>
+    </inertial>
+  </xacro:macro>
+  
+</robot>

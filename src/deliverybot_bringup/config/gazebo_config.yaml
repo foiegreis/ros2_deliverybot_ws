@@ -1,0 +1,9 @@
+gazebo:
+  ros__parameters:
+    publish_rate: 400.0
+
+    physics:
+      type: 'ode'
+      max_step_size: 0.001
+      real_time_factor: 1.0
+      real_time_update_rate: 1000.0

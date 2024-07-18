@@ -1,0 +1,4 @@
+source;share/deliverybot_description/local_setup.bash
+source;share/deliverybot_description/local_setup.dsv
+source;share/deliverybot_description/local_setup.sh
+source;share/deliverybot_description/local_setup.zsh

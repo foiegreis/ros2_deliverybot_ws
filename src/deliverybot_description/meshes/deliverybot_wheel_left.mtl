@@ -1,0 +1,12 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl wheel_material
+Ns 156.384288
+Ka 1.000000 1.000000 1.000000
+Kd 0.383166 0.314011 0.244580
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2

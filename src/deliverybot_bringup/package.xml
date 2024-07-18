@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>deliverybot_bringup</name>
+  <version>0.0.0</version>
+  <description>Deliverybot bringup package</description>
+  <maintainer email="roboticsunveiled@gmail.com">foiegreis</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <exec_depend>ros2launch</exec_depend>
+
+  <exec_depend>deliverybot_description</exec_depend>
+  <exec_depend>deliverybot_controllers</exec_depend>
+  
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

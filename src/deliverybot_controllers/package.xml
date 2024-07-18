@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>deliverybot_controllers</name>
+  <version>0.0.0</version>
+  <description>Deliverybot controllers package</description>
+  <maintainer email="roboticsunveiled@gmail.com">foiegreis</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>ackermann_msgs</depend>
+
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>teleop_twist_joy</exec_depend>
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+  <exec_depend>key_teleop</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+
+  <exec_depend>deliverybot_description</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
