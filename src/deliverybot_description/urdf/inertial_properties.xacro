@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- BODY-->
   <xacro:macro name="body_inertial">
       <inertial>
         <origin xyz="-0.0055 -0.0002 -0.0014" rpy="0.0 0.0 0.0"/>
@@ -16,6 +17,7 @@
       </inertial>
   </xacro:macro>
 
+  <!-- STEERING-->
   <xacro:macro name="steering_inertial">
     <inertial>
       <mass value="0.25"/>
@@ -29,6 +31,8 @@
     </inertial>
   </xacro:macro>
 
+  <!-- WHEELS -->
+  <!-- dummy-->
   <xacro:macro name="cylinder_inertial" params="m r l xyz rpy">
     <inertial>
         <origin xyz="${xyz}" rpy="${rpy}"/>
@@ -39,12 +43,17 @@
     </inertial>
   </xacro:macro>
 
-  <!-- from cylinder inertial -->
   <xacro:macro name="wheel_right_inertial">
     <inertial>
       <origin rpy="1.57 0 0" xyz="0 0 0"/>
     <mass value="2.26428"/>
-    <inertia ixx="0.142467259859483" ixy="0" ixz="0" iyy="0.142467259859483" iyz="0" izz="0.232177637223095"/>
+    <inertia 
+        ixx="0.142467259859483" 
+        ixy="0" 
+        ixz="0" 
+        iyy="0.142467259859483" 
+        iyz="0" 
+        izz="0.232177637223095"/>
     </inertial>
   </xacro:macro>
 
@@ -52,8 +61,44 @@
     <inertial>
       <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <mass value="2.26428"/>
-      <inertia ixx="0.142467259859483" ixy="0" ixz="0" iyy="0.142467259859483" iyz="0" izz="0.232177637223095"/>
+      <inertia 
+        ixx="0.142467259859483" 
+        ixy="0" 
+        ixz="0" 
+        iyy="0.142467259859483" 
+        iyz="0" 
+        izz="0.232177637223095"/>
     </inertial>
   </xacro:macro>
-  
+
+  <!-- IMU-->
+  <xacro:macro name="imu_inertial">
+    <inertial>
+      <origin rpy="0.0009 0.0007 0.0003" xyz="0 0 0"/>
+      <mass value="0.011352005096910034"/>
+      <inertia 
+        ixx="4.417895181776976e-08" 
+        ixy="1.772271240247652e-09" 
+        ixz="3.0915776324453116e-10" 
+        iyy="2.7136906330486448e-08" 
+        iyz="1.9975539330428303e-11" 
+        izz="6.995430697342334e-08"/>
+    </inertial>
+  </xacro:macro>
+
+    <!-- LIDAR -->
+    <xacro:macro name="lidar_inertial">
+      <inertial>
+        <origin rpy="-0.0019 -0.0000 0.0658" xyz="0 0 0"/>
+        <mass value="0.28590020390563653"/>
+        <inertia 
+          ixx="0.000762452760169552" 
+          ixy="-7.066832712187747e-07" 
+          ixz="6.444761162481759e-06" 
+          iyy="0.000749768395733118" 
+          iyz="6.301900964921601e-07" 
+          izz="0.00045580963102950615"/>
+      </inertial>
+    </xacro:macro>
+
 </robot>

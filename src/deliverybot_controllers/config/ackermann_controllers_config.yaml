@@ -45,4 +45,21 @@ ackermann_steering_controller:
 
     publish_rate: 50
 
-  
+    # NOISE ---------------------------------------------------------------------------------
+    # Overall uncertainty in the odometry estimation based on the robot's kinematic model 
+    
+    #pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01] #higher uncertainty in yaw
+    #twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01] #higher uncertainty in yaw
+    
+    # Gaussian noise
+    #gaussian_noise:
+    #  linear:
+    #    x:
+    #      stddev: 0.1  # Standard deviation for linear x velocity noise
+    #      mean: 0.0     # Mean of the noise (kept at 0 to avoid bias)
+    #  angular:
+    #    z:
+    #      stddev: 0.1  # Standard deviation for angular z velocity noise
+    #      mean: 0.0
+
+    

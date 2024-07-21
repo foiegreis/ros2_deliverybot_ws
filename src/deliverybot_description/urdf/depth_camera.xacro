@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- LINKS -->
+    <link name="depth_camera_link">
+        <visual>
+            <geometry>
+                <box size="0.010 0.03 0.03"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>    
+
+    <link name="depth_camera_optical_link"/>
+
+    <!-- JOINTS-->
+    <joint name="depth_camera_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="depth_camera_link"/>
+        <origin xyz="${depth_camera_offset_x} ${depth_camera_offset_y} ${body_depth_camera_offset_z}" rpy="0.0 0.0 0.0"/>    
+    </joint>
+
+    <joint name="depth_camera_optical_joint" type="fixed">
+        <parent link="depth_camera_link"/>
+        <child link="depth_camera_optical_link"/>
+        <origin xyz="0.010 0 0" rpy="${-PI/2} 0 ${-PI/2}"/>
+    </joint>
+
+    <!-- **Higliting differences with normal camera-->
+    <gazebo reference="depth_camera_link">
+        <material>Gazebo/Red</material>
+        <sensor name="depth_camera" type="depth"> <!-- Depth camera--> 
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <camera>
+                <horizontal_fov>1.089</horizontal_fov>
+                <image>
+                    <format>B8G8R8</format> <!-- HERE we swap the channels from  RGB to BGR-->
+                    <width>640</width>
+                    <height>480</height>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8.0</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>depth_camera_optical_link</frame_name>
+                <min_depth>0.1</min_depth> <!-- Minimum distance from the camera at which objects can be detected - filters out too close objects-->
+                <max_depth>100.0</max_depth> <!-- Maximum distance from the camera at which objects can be detected - filters out too far objects-->
+            </plugin>
+        </sensor>
+    </gazebo>
+    
+</robot>

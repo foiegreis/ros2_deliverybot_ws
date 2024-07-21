@@ -13,6 +13,9 @@ def generate_launch_description():
 
     description_dir = get_package_share_directory("deliverybot_description")
     controllers_dir = get_package_share_directory("deliverybot_controllers")
+    localization_dir = get_package_share_directory("deliverybot_localization")
+    sensors_dir = get_package_share_directory("deliverybot_sensors")
+
     bringup_dir = get_package_share_directory("deliverybot_bringup")
 
     gazebo_ros_dir = get_package_share_directory("gazebo_ros")
@@ -36,7 +39,7 @@ def generate_launch_description():
         default_value=os.path.join(
             bringup_dir,
             "rviz",
-            "display.rviz"
+            "display_sensors.rviz"
         ),
         description="Absolute path to rviz config"
     )
@@ -107,6 +110,19 @@ def generate_launch_description():
         )
     )
     
+    # EKF Local Localization - Odom from Ackermann + sensor fusion IMU
+    local_localization = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(localization_dir, "launch", "local_localization.launch.py")
+        )
+    )
+
+    #Lidar fusion 
+    lidar_fusion = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(sensors_dir, "launch", "sensors.launch.py")
+        )
+    )
     
     return LaunchDescription([
     
@@ -123,8 +139,10 @@ def generate_launch_description():
         TimerAction(
             actions=[
                 rviz2,
-                ackermann_control
-
+                ackermann_control,
+                #local_localization
+                lidar_fusion
+                
             ],
             period=4.0  
         )

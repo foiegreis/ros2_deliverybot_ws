@@ -12,8 +12,13 @@ This project's goal is to create an autonomous (and possibly the cutest) 4 wheel
 Final goal is to spawn multiple DeliveryBots and perform fleet management.
 
 
-<img src="imgs/img1.png" alt="DeliveryBot">
-<img src="imgs/img2.png" alt="DeliveryBot in ParkingLot world">
+<img src="imgs/deliverybot.png" alt="DeliveryBot">
+<img src="imgs/deliverybot2.png" alt="DeliveryBot in ParkingLot world">
+
+#### ParkingLot world
+In this project we use a self-made world depicting a Parking Lot.
+
+<img src="imgs/parkinglot.png" alt="DeliveryBot in ParkingLot world">
 
 
 
@@ -21,13 +26,27 @@ Final goal is to spawn multiple DeliveryBots and perform fleet management.
 - Robot Urdf description
 - Ackermann steering control
 - Joystick teleoperation 
+- Imu integration
+- 3D lidars integration (4 lidars, that get fused in a single pointcloud - deliverybot_sensors/lidar_fusion_node.py)
+- Depth camera integration
 
 #### What's coming:
 - Twistmux for input management (including safety stops)
-- Sensor integration (3D lidar, cameras, IMU, radar)
 - Improved odometry
 - SLAM implementation
+- Navigation
 - Computer vision for mobile obstacle detection
+- Path Planning
+- Behavioral Planning
+
+#### Commits History
+- first commit: description, ackermann control, teleoperation
+- second commit: lidars, depth camera
+
+#### Snapshots
+Lidar pointcloud and dept camera
+<img src="imgs/lidar_depth_camera.png" alt="DeliveryBot in ParkingLot world">
+
 
 ### Build the workspace
 ```

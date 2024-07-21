@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- Link -->
+    <link name="imu_link">
+        <xacro:imu_inertial/>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://deliverybot_description/meshes/imu.stl" />
+          </geometry>
+          <material name="grey"/>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://deliverybot_description/meshes/imu.stl" />
+          </geometry>
+          <material name="grey"/>
+        </collision>
+      </link>
+    
+      <!-- Joint-->
+      <joint name="imu_joint" type="fixed">
+        <origin xyz="0 0 ${body_imu_offset_z}" rpy="0 0 0" />
+        <parent link="body_link" />
+        <child link="imu_link" />
+      </joint>
+      
+      <!-- Plugin-->
+    <gazebo reference="imu_link">
+        <sensor name="imu" type="imu">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <imu>
+            <angular_velocity>
+                <x>
+                <noise type="gaussian">
+                    <mean>0.0</mean>
+                    <stddev>2e-4</stddev>
+                </noise>
+                </x>
+                <y>
+                <noise type="gaussian">
+                    <mean>0.0</mean>
+                    <stddev>2e-4</stddev>
+                </noise>
+                </y>
+                <z>
+                <noise type="gaussian">
+                    <mean>0.0</mean>
+                    <stddev>2e-4</stddev>
+                </noise>
+                </z>
+            </angular_velocity>
+            <linear_acceleration>
+                <x>
+                <noise type="gaussian">
+                    <mean>0.0</mean>
+                    <stddev>1.7e-2</stddev>
+                </noise>
+                </x>
+                <y>
+                <noise type="gaussian">
+                    <mean>0.0</mean>
+                    <stddev>1.7e-2</stddev>
+                </noise>
+                </y>
+                <z>
+                <noise type="gaussian">
+                    <mean>0.0</mean>
+                    <stddev>1.7e-2</stddev>
+                </noise>
+                </z>
+            </linear_acceleration>
+            </imu>
+            <plugin name="imu" filename="libgazebo_ros_imu_sensor.so"/> <!-- gazebo plugin-->
+        </sensor>
+    </gazebo>
+
+</robot>
