@@ -35,7 +35,7 @@ In this project we use a self-made world depicting a Parking Lot.
 - Improved odometry
 - SLAM implementation
 - Navigation
-- Computer vision for mobile obstacle detection
+- Computer vision for mobile obstacle and parking lines detection
 - Path Planning
 - Behavioral Planning
 
@@ -57,7 +57,7 @@ source ./install/setup.bash
 
 ### Launch the latest implementation
 ```
-(epmpty world)
+(empty world)
 ros2 launch deliverybot_bringup deliverybot.launch.py
 
 (ParkingLot world)
