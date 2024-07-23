@@ -45,6 +45,7 @@ In this project we use a self-made world depicting a Parking Lot.
 #### Commits History
 - first commit: description, ackermann control, teleoperation
 - second commit: lidars, depth camera
+- third commit: twistmux and safety stop
 
 #### Snapshots
 Lidar pointcloud and dept camera
