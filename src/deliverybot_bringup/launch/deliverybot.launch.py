@@ -13,14 +13,14 @@ def generate_launch_description():
 
     description_dir = get_package_share_directory("deliverybot_description")
     controllers_dir = get_package_share_directory("deliverybot_controllers")
+    teleop_dir = get_package_share_directory("deliverybot_teleop")
     localization_dir = get_package_share_directory("deliverybot_localization")
     sensors_dir = get_package_share_directory("deliverybot_sensors")
-
     bringup_dir = get_package_share_directory("deliverybot_bringup")
 
     gazebo_ros_dir = get_package_share_directory("gazebo_ros")
     gazebo_config = os.path.join(bringup_dir, 'config', 'gazebo_config.yaml')
-    
+
 
     urdf_path_arg = DeclareLaunchArgument(
         name="model",
@@ -39,7 +39,7 @@ def generate_launch_description():
         default_value=os.path.join(
             bringup_dir,
             "rviz",
-            "display_sensors.rviz"
+            "display_bringup.rviz"
         ),
         description="Absolute path to rviz config"
     )
@@ -102,20 +102,6 @@ def generate_launch_description():
             "-d", rviz_config
         ]
     )
-    
-    # Controllers
-    ackermann_control = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(controllers_dir, "launch", "ackermann_control.launch.py")
-        )
-    )
-    
-    # EKF Local Localization - Odom from Ackermann + sensor fusion IMU
-    local_localization = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(localization_dir, "launch", "local_localization.launch.py")
-        )
-    )
 
     #Lidar fusion 
     lidar_fusion = IncludeLaunchDescription(
@@ -123,6 +109,54 @@ def generate_launch_description():
             os.path.join(sensors_dir, "launch", "sensors.launch.py")
         )
     )
+
+
+    # Teleop and twistmux
+    teleoperation = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(teleop_dir, "launch", "teleop.launch.py")
+        ),
+        launch_arguments={
+            "use_sim_time": 'true'
+        }.items()
+    )
+    
+    #Twistmux speed monitoring
+    twistmux_speed_monitoring = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(teleop_dir, "launch", "twistmux_speed_monitoring.launch.py")
+            )
+        )
+
+    #Convert twistmux output to TwistStamped
+    twist_to_twist_stamped_and_safety_node = Node(
+            package='deliverybot_teleop',
+            executable='twist_to_twist_stamped_and_safety.py',
+            name='twist_controller_stamped',
+            parameters=[
+                {'input_unstamped_topic' : 'cmd_vel_ack'},
+                {'output_stamped_topic': 'cmd_vel_ack_stamped'},
+                {'frame_id':'base_link'},
+                {'safety_stop_topic': 'safety_stop'},
+                {'safety_warning_topic': 'safety_warning'},
+            ]
+        )
+
+    # Controllers
+    ackermann_control = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(controllers_dir, "launch", "controllers.launch.py")
+        )
+    )
+
+    # EKF Local Localization - Odom from Ackermann + sensor fusion IMU
+    local_localization = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(localization_dir, "launch", "local_localization.launch.py")
+        )
+    )
+
+   
     
     return LaunchDescription([
     
@@ -139,12 +173,16 @@ def generate_launch_description():
         TimerAction(
             actions=[
                 rviz2,
-                ackermann_control,
+                lidar_fusion,
+                teleoperation,
+                twistmux_speed_monitoring,
+                twist_to_twist_stamped_and_safety_node,
+                ackermann_control
                 #local_localization
-                lidar_fusion
+                
                 
             ],
-            period=4.0  
+            period=3.0  
         )
     ])
 

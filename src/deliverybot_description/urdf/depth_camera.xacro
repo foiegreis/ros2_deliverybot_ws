@@ -23,7 +23,7 @@
     <joint name="depth_camera_optical_joint" type="fixed">
         <parent link="depth_camera_link"/>
         <child link="depth_camera_optical_link"/>
-        <origin xyz="0.010 0 0" rpy="${-PI/2} 0 ${-PI/2}"/>
+        <origin xyz="0.011 0 0" rpy="${-PI/2} 0 ${-PI/2}"/>
     </joint>
 
     <!-- **Higliting differences with normal camera-->

@@ -22,6 +22,7 @@
   <exec_depend>deliverybot_description</exec_depend>
   <exec_depend>deliverybot_controllers</exec_depend>
   <exec_depend>deliverybot_localization</exec_depend>
+  <exec_depend>deliverybot_teleop</exec_depend>
 
   
   <export>

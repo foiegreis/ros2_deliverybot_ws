@@ -9,16 +9,6 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-
-  <depend>rclpy</depend>
-  <depend>geometry_msgs</depend>
-  <depend>ackermann_msgs</depend>
-
-  <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>joy</exec_depend>
-  <exec_depend>teleop_twist_joy</exec_depend>
-  <exec_depend>teleop_twist_keyboard</exec_depend>
-  <exec_depend>key_teleop</exec_depend>
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>

@@ -9,11 +9,10 @@
             <robot_param_node>robot_state_publisher</robot_param_node>
         <parameters>$(find deliverybot_controllers)/config/ackermann_controllers_config.yaml</parameters>
         <ros> 
-            <remapping>ackermann_steering_controller/reference:=cmd_vel_stamped</remapping>
+            <remapping>ackermann_steering_controller/reference:=cmd_vel_ack_stamped</remapping> 
             <remapping>ackermann_steering_controller/odometry:=odom</remapping>
             <remapping>ackermann_steering_controller/tf_odometry:=tf</remapping>
             <robot_base_frame>base_link</robot_base_frame>
-
           </ros> 
         </plugin>
     </gazebo>

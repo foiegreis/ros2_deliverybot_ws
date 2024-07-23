@@ -29,12 +29,15 @@ In this project we use a self-made world depicting a Parking Lot.
 - Imu integration
 - 3D lidars integration (4 lidars, that get fused in a single pointcloud - deliverybot_sensors/lidar_fusion_node.py)
 - Depth camera integration
+- Twistmux for input management. Joystick and Keyboard inputs available
+- Twistmux safety stop (danger zone) and speed decrease (warning zone)
+
 
 #### What's coming:
-- Twistmux for input management (including safety stops)
 - Improved odometry
-- SLAM implementation
+- SLAM implementation (Localization and Mapping)
 - Navigation
+- Additional navigation input to TwistMux
 - Computer vision for mobile obstacle and parking lines detection
 - Path Planning
 - Behavioral Planning
@@ -47,7 +50,11 @@ In this project we use a self-made world depicting a Parking Lot.
 Lidar pointcloud and dept camera
 <img src="imgs/lidar_depth_camera.png" alt="DeliveryBot in ParkingLot world">
 
+Speed decrease if object is detected in warning zone distance. Rviz Markers visualization.
+<img src="imgs/warning_zone.png" alt="DeliveryBot in ParkingLot world">
 
+Twistmux Safety Stop if object is detected in danger zone distance. Rviz Markers visualization.
+<img src="imgs/stop_zone.png" alt="DeliveryBot in ParkingLot world">
 ### Build the workspace
 ```
 cd ros2_deliverybot_ws

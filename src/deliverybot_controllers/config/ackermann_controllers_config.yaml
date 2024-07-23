@@ -40,7 +40,7 @@ ackermann_steering_controller:
     enable_odom_tf: true
     odom_frame_id: odom
     base_frame_id: base_link
-    cmd_topic: "cmd_vel_stamped"
+    cmd_vel_topic: "cmd_vel_ack_stamped"
     cmd_type: "geometry_msgs/msg/TwistStamped"
 
     publish_rate: 50

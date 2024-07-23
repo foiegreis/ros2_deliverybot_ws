@@ -56,43 +56,43 @@
 <!-- Plugins-->
 <xacro:macro name="lidar_sensor" params="name">
     <gazebo reference="${name}_link">
-        <sensor type="gpu_ray" name="${name}">
-            <pose>0 0 0 0 0 0</pose>
+        <sensor name="${name}" type="ray">
+            <always_on>true</always_on>
+            <update_rate>10</update_rate>
             <visualize>false</visualize>
-            <update_rate>5</update_rate>
+            <pose>0 0 0 0 0 0</pose>
             <ray>
                 <scan>
-                    <horizontal>
-                        <samples>100</samples>
-                        <resolution>1</resolution>
-                        <min_angle>-1.57</min_angle> <!-- -90 degrees -->
-                        <max_angle>1.57</max_angle>  <!-- 90 degrees -->
-                    </horizontal>
-                    <vertical>
-                        <samples>16</samples>
-                        <resolution>1</resolution>
-                        <min_angle>-0.3044</min_angle> <!-- -17 degrees -->
-                        <max_angle>0.1308</max_angle>  <!-- 7.5 degrees -->
-                    </vertical>
+                <horizontal>
+                    <samples>100</samples>       <!-- The velodyne has 32 beams(samples) -->
+                    <resolution>1</resolution>
+                    <min_angle>-1.5707963</min_angle>
+                    <max_angle>1.5707963</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>16</samples>       <!-- The velodyne has 32 beams(samples) -->
+                    <resolution>1</resolution>
+                    <min_angle>-0.20</min_angle>
+                    <max_angle>0.06</max_angle>
+                </vertical>
                 </scan>
                 <range>
-                    <min>0.10</min>
-                    <max>20.0</max>
-                    <resolution>0.02</resolution>
+                    <min>0.1</min> <!-- Minimum distance of the beam -->
+                    <max>30.0</max>
+                <resolution>0.01</resolution>
                 </range>
-                <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.01</stddev>
-                </noise>
             </ray>
-            <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_ray_sensor.so">
+            <plugin name="gazebo_ros_${name}_velodyne_controller" filename="libgazebo_ros_velodyne_laser.so">
                 <ros>
                     <namespace>/</namespace>
                     <remapping>~/out:=${name}/points</remapping>
                 </ros>
+                <frameName>${name}_link</frameName>
                 <output_type>sensor_msgs/PointCloud2</output_type>
-                <frame_name>${name}_link</frame_name>
+                <min_range>0.1</min_range>
+                <max_range>30</max_range>
+                <min_intensity>0.0</min_intensity>
+                <gaussianNoise>0.0</gaussianNoise>
             </plugin>
         </sensor>
     </gazebo>

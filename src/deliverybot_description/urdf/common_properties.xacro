@@ -32,6 +32,8 @@
     <xacro:property name="lidar_offset_yaw" value="${PI/4}"/> 
     <xacro:property name="body_lidar_offset_z" value="${1.2338 - body_offset_z}"/> 
     <xacro:property name="lidar_sensor_offset_z" value="0.09"/> 
+    <xacro:property name="central_lidar_offset_z" value="1.0"/> 
+
 
     <!-- depth camera-->
     <xacro:property name="depth_camera_offset_x" value="0.79739"/> 

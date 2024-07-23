@@ -7,6 +7,7 @@ import numpy as np
 import tf2_ros
 from tf2_sensor_msgs import do_transform_cloud
 from sensor_msgs_py import point_cloud2
+from rclpy.duration import Duration
 
 class LidarFusionNode(Node):
 
@@ -46,7 +47,7 @@ class LidarFusionNode(Node):
         for frame_id, cloud_msg in self.latest_clouds.items():
             try:
                 # Transform point cloud to base_link frame
-                transform = self.tf_buffer.lookup_transform('base_link', frame_id, rclpy.time.Time())
+                transform = self.tf_buffer.lookup_transform('central_lidar_link', frame_id, rclpy.time.Time())
                 cloud_transformed = do_transform_cloud(cloud_msg, transform)
                 
                 # Convert to list of points
@@ -54,7 +55,7 @@ class LidarFusionNode(Node):
                 combined_points.extend(points)
                 
             except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-                self.get_logger().warn(f'Could not transform point cloud from {frame_id} to base_link')
+                self.get_logger().warn(f'Could not transform point cloud from {frame_id} to central_lidar_link')
         
         if combined_points:
             # Convert combined points to numpy array
@@ -65,10 +66,11 @@ class LidarFusionNode(Node):
             
             # Create and publish fused point cloud message
             header = self.latest_clouds[list(self.latest_clouds.keys())[0]].header
-            header.frame_id = 'base_link'
+            header.frame_id = 'central_lidar_link'
             
             fused_msg = point_cloud2.create_cloud_xyz32(header, xyz_points)
             self.publisher.publish(fused_msg)
+
 
 def main(args=None):
     rclpy.init(args=args)
