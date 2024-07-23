@@ -41,6 +41,9 @@ In this project we use a self-made world depicting a Parking Lot.
 - Computer vision for mobile obstacle and parking lines detection
 - Path Planning
 - Behavioral Planning
+- Parking functionalities
+- Multiple robot spawning
+- Call to action from 'head' robot to 'slaves' robots
 
 #### Commits History
 - first commit: description, ackermann control, teleoperation
