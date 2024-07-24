@@ -37,7 +37,7 @@ In this project we use a self-made world depicting a Parking Lot.
 
 
 #### What's coming:
-- Improve odometry
+- Improved odometry
 - Navigation
 - Additional navigation input to TwistMux
 - Computer vision for mobile obstacle and parking lines detection
