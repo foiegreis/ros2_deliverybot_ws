@@ -55,7 +55,7 @@ In this project we use a self-made world depicting a Parking Lot.
 
 #### Snapshots
 Lidar pointcloud and dept camera
-<img src="imgs/lidar_depth_camera.png" alt="DeliveryBot in ParkingLot world">
+<img src="imgs/depth_camera.png" alt="DeliveryBot in ParkingLot world">
 
 Speed decrease if object is detected in warning zone distance. Rviz Markers visualization.
 <img src="imgs/warning_zone.png" alt="DeliveryBot in ParkingLot world">
