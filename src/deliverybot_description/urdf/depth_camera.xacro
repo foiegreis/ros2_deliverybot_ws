@@ -5,7 +5,7 @@
     <link name="depth_camera_link">
         <visual>
             <geometry>
-                <box size="0.010 0.03 0.03"/>
+                <box size="0.010 0.3 0.03"/>
             </geometry>
             <material name="white"/>
         </visual>

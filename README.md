@@ -31,11 +31,13 @@ In this project we use a self-made world depicting a Parking Lot.
 - Depth camera integration
 - Twistmux for input management. Joystick and Keyboard inputs available
 - Twistmux safety stop (danger zone) and speed decrease (warning zone)
+- Added a mesh for the central lidar link (fused pointcloud)
+- Added a node to extract 2D LaserScan from the 3D fused PointCloud, for mapping purposes
+- SLAM implementation (Localization and Mapping) with Graph Slam from Slam toolbox
 
 
 #### What's coming:
-- Improved odometry
-- SLAM implementation (Localization and Mapping)
+- Improve odometry
 - Navigation
 - Additional navigation input to TwistMux
 - Computer vision for mobile obstacle and parking lines detection
@@ -49,6 +51,7 @@ In this project we use a self-made world depicting a Parking Lot.
 - first commit: description, ackermann control, teleoperation
 - second commit: lidars, depth camera
 - third commit: twistmux and safety stop
+- fourth commit: laserscan and slam
 
 #### Snapshots
 Lidar pointcloud and dept camera
@@ -59,6 +62,15 @@ Speed decrease if object is detected in warning zone distance. Rviz Markers visu
 
 Twistmux Safety Stop if object is detected in danger zone distance. Rviz Markers visualization.
 <img src="imgs/stop_zone.png" alt="DeliveryBot in ParkingLot world">
+
+2D LaserScan extracted from the fused 3D Pointcloud
+<img src="imgs/scan.png" alt="DeliveryBot in ParkingLot world">
+
+Mapping view in Rviz2, Graph Slam
+<img src="imgs/mapping.png" alt="DeliveryBot in ParkingLot world">
+
+The map obtained from Graph Slam
+<img src="imgs/map.png" alt="DeliveryBot in ParkingLot world">
 ### Build the workspace
 ```
 cd ros2_deliverybot_ws

@@ -15,6 +15,7 @@
     <xacro:include filename="$(find deliverybot_description)/urdf/lidar.xacro" />
     <xacro:include filename="$(find deliverybot_description)/urdf/depth_camera.xacro" />
 
+
     <!-- Frictions and Transmissions-->
     <xacro:include filename="$(find deliverybot_description)/urdf/gazebo_properties.xacro" />
 

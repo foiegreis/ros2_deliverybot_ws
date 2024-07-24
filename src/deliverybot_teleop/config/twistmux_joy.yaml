@@ -8,5 +8,5 @@ joystick:
       linear_backward_max: 1.0
       angular_min: 0.7
       angular_max: 5.0
-      steps: 3 #higher step values for smoother speed changes
+      steps: 5 #higher step values for smoother speed changes
       

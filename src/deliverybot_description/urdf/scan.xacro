@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- Links -->
+
+ <!-- Reference link for the fused pointcloud-->
+  <link name="scan_link">
+    <xacro:scan_inertial/>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <mesh filename="package://deliverybot_description/meshes/scan.obj" />
+        </geometry>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <mesh filename="package://deliverybot_description/meshes/scan.stl" />
+        </geometry>
+    </collision>
+  </link>
+
+  <link name="scan_optical_link"/>
+  
+  <joint name="scan_joint" type="fixed">
+    <origin xyz="0 0 ${body_scan_offset_z}" rpy="0 0 0" />
+        <parent link="body_link" />
+        <child link="scan_link" />
+  </joint> 
+  
+  <joint name="scan_optical_joint" type="fixed">
+    <origin xyz="${scan_optical_offset_x} 0 ${scan_optical_offset_z}" rpy="0 0 0" />
+        <parent link="scan_link" />
+        <child link="scan_optical_link" />
+  </joint> 
+  
+    
+<!-- Plugins-->
+<gazebo reference="scan_optical_link">
+    <sensor type="ray" name="scan">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+        <update_rate>5</update_rate>
+        <ray>
+            <scan>
+            <horizontal>
+                <samples>360</samples>
+                <resolution>1.00000</resolution>
+                <min_angle>0.000000</min_angle>
+                <max_angle>6.280000</max_angle> <!-- 360 in rad-->
+            </horizontal>
+            </scan>
+            <range>
+                <min>0.12</min> <!-- obstacles closer than 80 cm will not be detected (robot body)-->
+                <max>20.0</max> <!-- obstacles furthest than 20 m will not be detected-->
+                <resolution>0.02</resolution> <!-- resolution 2cm -->
+            </range>
+            <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.01</stddev>
+            </noise>
+        </ray>
+        <plugin name="scan" filename="libgazebo_ros_ray_sensor.so"> <!-- gazebo plugin-->
+            <ros>
+            <remapping>~/out:=scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>scan_optical_link</frame_name>
+        </plugin>
+        </sensor>
+</gazebo>
+
+
+
+</robot>

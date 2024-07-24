@@ -4,10 +4,24 @@
     <!-- Links -->
 
  <!-- Reference link for the fused pointcloud-->
-  <link name="central_lidar_link"/> 
+  <link name="central_lidar_link">
+    <xacro:scan_inertial/>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <mesh filename="package://deliverybot_description/meshes/scan.obj" />
+        </geometry>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <mesh filename="package://deliverybot_description/meshes/scan.stl" />
+        </geometry>
+    </collision>
+  </link> 
   
   <joint name="body_central_lidar_joint" type="fixed">
-    <origin xyz="0 0 ${body_lidar_offset_z + lidar_sensor_offset_z + central_lidar_offset_z}" rpy="0 0 0" />
+    <origin xyz="0 0 ${central_lidar_offset_z}" rpy="0 0 0" />
         <parent link="body_link" />
         <child link="central_lidar_link" />
   </joint>
@@ -34,14 +48,14 @@
     <link name="${name}_link"/>
 
     <joint name="${name}_support_joint" type="fixed">
-        <origin xyz="${prefix_x * lidar_offset_x} ${prefix_y * lidar_offset_y} ${-lidar_sensor_offset_z - central_lidar_offset_z}" rpy="0 0 0" />
-        <parent link="central_lidar_link" />
+        <origin xyz="${prefix_x * lidar_offset_x} ${prefix_y * lidar_offset_y} ${body_lidar_offset_z}" rpy="0 0 0" />
+        <parent link="body_link" />
         <child link="${name}_support_link" />
     </joint>
 
     <joint name="${name}_joint" type="fixed">
-        <origin xyz="${prefix_x * lidar_offset_x} ${prefix_y * lidar_offset_y} ${-central_lidar_offset_z}" rpy="0 0 ${yaw_multiplier * lidar_offset_yaw}" />
-        <parent link="central_lidar_link" />
+        <origin xyz="${prefix_x * lidar_offset_x} ${prefix_y * lidar_offset_y} ${lidar_sensor_offset_z}" rpy="0 0 ${yaw_multiplier * lidar_offset_yaw}" />
+        <parent link="body_link" />
         <child link="${name}_link" />
     </joint>
 </xacro:macro>
@@ -65,13 +79,13 @@
                     <horizontal>
                         <samples>100</samples>
                         <resolution>1</resolution>
-                        <min_angle>-1.57</min_angle> <!-- -90 degrees -->
-                        <max_angle>1.57</max_angle>  <!-- 90 degrees -->
+                        <min_angle>-1.04</min_angle> <!-- -60 degrees -->
+                        <max_angle>1.04</max_angle>  <!-- 60 degrees -->
                     </horizontal>
-                    <vertical>
-                        <samples>16</samples>
+                    <vertical> 
+                        <samples>32</samples>
                         <resolution>1</resolution>
-                        <min_angle>-0.3044</min_angle> <!-- -17 degrees -->
+                        <min_angle>-0.436</min_angle> <!-- -25 degrees -->
                         <max_angle>0.1308</max_angle>  <!-- 7.5 degrees -->
                     </vertical>
                 </scan>
@@ -80,11 +94,11 @@
                     <max>20.0</max>
                     <resolution>0.02</resolution>
                 </range>
-                <noise>
+                <!-- <noise>
                     <type>gaussian</type>
                     <mean>0.0</mean>
                     <stddev>0.01</stddev>
-                </noise>
+                </noise> -->
             </ray>
             <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_ray_sensor.so">
                 <ros>

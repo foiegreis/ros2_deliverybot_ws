@@ -11,11 +11,15 @@ find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(sensor_msgs REQUIRED)
-#find_package(pcl_conversions REQUIRED)  # Corrected from pcl_conversion to pcl_conversions
-#find_package(PCL REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_sensor_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
+find_package(PCL REQUIRED)
 
+
+include_directories(include ${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 install(DIRECTORY
   launch
@@ -23,20 +27,15 @@ install(DIRECTORY
 
 #C++ --------------------------------------------------------
 
-#add_executable(lidar_fusion_node src/lidar_fusion_node.cpp)
-#ament_target_dependencies(lidar_fusion_node
- #rclcpp
-  #sensor_msgs
- # pcl_conversions
-  #PCL
-  #tf2_ros
-  #tf2_sensor_msgs
-#)
+#add_executable(pointcloud_to_laserscan_node src/pointcloud_to_laserscan_node.cpp)
+#ament_target_dependencies(pointcloud_to_laserscan_node rclcpp sensor_msgs pcl_conversions PCL)
+#target_link_libraries(pointcloud_to_laserscan_node ${PCL_LIBRARIES})
 
-#install(TARGETS
- # lidar_fusion_node
- # DESTINATION lib/${PROJECT_NAME}
-#)
+
+install(TARGETS
+  #pointcloud_to_laserscan_node
+  DESTINATION lib/${PROJECT_NAME}
+ )
 
 
 #Py -----------------------------------------------------------
@@ -45,7 +44,7 @@ ament_python_install_package(${PROJECT_NAME})
 
 #install python executables
 install(PROGRAMS
-  deliverybot_sensors/lidar_fusion_node.py
+  deliverybot_sensors/pointcloud_fusion_node.py
 
 
   DESTINATION lib/${PROJECT_NAME})

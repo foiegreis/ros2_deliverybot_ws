@@ -14,13 +14,13 @@ def generate_launch_description():
     # Declare arguments ++++++++++++++++++++++++++++++++++
     danger_distance_arg = DeclareLaunchArgument(
         "danger_distance",
-        default_value= "2.6",
+        default_value= "2.4",
         description="Danger distance for safety stop"
     )   
 
     warning_distance_arg = DeclareLaunchArgument(
         "warning_distance",
-        default_value= "3.8",
+        default_value= "3.3",
         description="Warning distance for safety stop"
     )   
 

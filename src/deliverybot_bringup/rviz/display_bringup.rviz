@@ -9,6 +9,8 @@ Panels:
         - /RobotModel1
         - /PointCloud21
         - /MarkerArray1
+        - /LaserScan1
+        - /LaserScan1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 719
   - Class: rviz_common/Selection
@@ -107,26 +109,27 @@ Visualization Manager:
           base_link:
             body_link:
               central_lidar_link:
-                lidar_front_left_link:
-                  {}
-                lidar_front_left_support_link:
-                  {}
-                lidar_front_right_link:
-                  {}
-                lidar_front_right_support_link:
-                  {}
-                lidar_rear_left_link:
-                  {}
-                lidar_rear_left_support_link:
-                  {}
-                lidar_rear_right_link:
-                  {}
-                lidar_rear_right_support_link:
-                  {}
+                {}
               depth_camera_link:
                 depth_camera_optical_link:
                   {}
               imu_link:
+                {}
+              lidar_front_left_link:
+                {}
+              lidar_front_left_support_link:
+                {}
+              lidar_front_right_link:
+                {}
+              lidar_front_right_support_link:
+                {}
+              lidar_rear_left_link:
+                {}
+              lidar_rear_left_support_link:
+                {}
+              lidar_rear_right_link:
+                {}
+              lidar_rear_right_support_link:
                 {}
               steering_left_link:
                 wheel_front_left_link:
@@ -171,6 +174,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
         depth_camera_link:
           Alpha: 1
           Show Axes: false
@@ -262,8 +266,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 0.9737181663513184
-        Min Value: -0.012666463851928711
+        Max Value: 2.0054945945739746
+        Min Value: -0.11326384544372559
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -297,13 +301,47 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        {}
+        "": true
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /zones
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.05000000074505806
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /fused_scan
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:

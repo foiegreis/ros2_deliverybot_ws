@@ -16,6 +16,7 @@ def generate_launch_description():
     teleop_dir = get_package_share_directory("deliverybot_teleop")
     localization_dir = get_package_share_directory("deliverybot_localization")
     sensors_dir = get_package_share_directory("deliverybot_sensors")
+    mapping_dir = get_package_share_directory("deliverybot_mapping")
     bringup_dir = get_package_share_directory("deliverybot_bringup")
 
     gazebo_ros_dir = get_package_share_directory("gazebo_ros")
@@ -57,6 +58,7 @@ def generate_launch_description():
     rviz_config = LaunchConfiguration("rviz_config")
     robot_description = ParameterValue(Command(["xacro ", LaunchConfiguration("model")]), value_type=str)
 
+    # Robot state publisher
     robot_state_publisher = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -66,6 +68,7 @@ def generate_launch_description():
         ]   
     )
 
+    # Gazebo
     gazebo_server = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(gazebo_ros_dir, "launch", "gzserver.launch.py")
@@ -82,6 +85,7 @@ def generate_launch_description():
         )
     )
 
+    # Spawn robot
     spawn_robot = Node(
         package="gazebo_ros",
         executable="spawn_entity.py",
@@ -92,6 +96,7 @@ def generate_launch_description():
         output="screen"
     )
 
+    # Rviz2
     rviz2 = Node(
         package="rviz2",
         executable="rviz2",
@@ -103,7 +108,7 @@ def generate_launch_description():
         ]
     )
 
-    #Lidar fusion 
+    # Lidar fusion 
     lidar_fusion = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(sensors_dir, "launch", "sensors.launch.py")
@@ -121,14 +126,14 @@ def generate_launch_description():
         }.items()
     )
     
-    #Twistmux speed monitoring
+    # Twistmux speed monitoring
     twistmux_speed_monitoring = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(teleop_dir, "launch", "twistmux_speed_monitoring.launch.py")
             )
         )
 
-    #Convert twistmux output to TwistStamped
+    # Convert twistmux output to TwistStamped
     twist_to_twist_stamped_and_safety_node = Node(
             package='deliverybot_teleop',
             executable='twist_to_twist_stamped_and_safety.py',
@@ -156,6 +161,12 @@ def generate_launch_description():
         )
     )
 
+    # Graph SLAM 
+    graph_slam = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(mapping_dir, "launch", "graph_slam.launch.py")
+        )
+    )
    
     
     return LaunchDescription([
@@ -177,8 +188,9 @@ def generate_launch_description():
                 teleoperation,
                 twistmux_speed_monitoring,
                 twist_to_twist_stamped_and_safety_node,
-                ackermann_control
+                ackermann_control,
                 #local_localization
+                graph_slam
                 
                 
             ],
