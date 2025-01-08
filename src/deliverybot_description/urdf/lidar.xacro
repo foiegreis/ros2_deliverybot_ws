@@ -68,12 +68,63 @@
 
     
 <!-- Plugins-->
-<xacro:macro name="lidar_sensor" params="name">
-    <gazebo reference="${name}_link">
-        <sensor type="gpu_ray" name="${name}">
-            <pose>0 0 0 0 0 0</pose>
-            <visualize>false</visualize>
-            <update_rate>5</update_rate>
+<xacro:if value="${gazebo_version == 'classic'}">
+    <xacro:macro name="lidar_sensor" params="name">
+        <gazebo reference="${name}_link">
+            <sensor type="gpu_ray" name="${name}">
+                <pose>0 0 0 0 0 0</pose>
+                <visualize>false</visualize>
+                <always_on>true</always_on>
+                <update_rate>5</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>100</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-1.04</min_angle> <!-- -60 degrees -->
+                            <max_angle>1.04</max_angle>  <!-- 60 degrees -->
+                        </horizontal>
+                        <vertical> 
+                            <samples>32</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.436</min_angle> <!-- -25 degrees -->
+                            <max_angle>0.1308</max_angle>  <!-- 7.5 degrees -->
+                        </vertical>
+                    </scan>
+                    <range>
+                        <min>0.10</min>
+                        <max>20.0</max>
+                        <resolution>0.02</resolution>
+                    </range>
+                    <!-- <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise> -->
+                </ray>
+
+                <!-- GAZEBO CLASSIC PLUGIN-->
+                <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_ray_sensor.so">
+                    <ros>
+                        <namespace>/</namespace>
+                        <remapping>~/out:=${name}/points</remapping>
+                    </ros>
+                    <output_type>sensor_msgs/PointCloud2</output_type>
+                    <frame_name>${name}_link</frame_name>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+    </xacro:if>
+
+<xacro:if value="${gazebo_version == 'ignition'}">
+    <xacro:macro name="lidar_sensor" params="name">
+       <gazebo reference="${name}_link">
+        <sensor name="${name}" type="gpu_lidar">
+            <ignition_frame_id>${name}_link</ignition_frame_id>
+            <pose relative_to="${name}_link">0 0 0 0 0 0</pose>
+            <topic>${name}/scan</topic>
+            <update_rate>10</update_rate>
             <ray>
                 <scan>
                     <horizontal>
@@ -82,7 +133,7 @@
                         <min_angle>-1.04</min_angle> <!-- -60 degrees -->
                         <max_angle>1.04</max_angle>  <!-- 60 degrees -->
                     </horizontal>
-                    <vertical> 
+                    <vertical>
                         <samples>32</samples>
                         <resolution>1</resolution>
                         <min_angle>-0.436</min_angle> <!-- -25 degrees -->
@@ -94,23 +145,50 @@
                     <max>20.0</max>
                     <resolution>0.02</resolution>
                 </range>
-                <!-- <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.01</stddev>
-                </noise> -->
             </ray>
-            <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_ray_sensor.so">
-                <ros>
-                    <namespace>/</namespace>
-                    <remapping>~/out:=${name}/points</remapping>
-                </ros>
-                <output_type>sensor_msgs/PointCloud2</output_type>
-                <frame_name>${name}_link</frame_name>
-            </plugin>
+            <always_on>1</always_on>
+            <visualize>true</visualize>
         </sensor>
     </gazebo>
-</xacro:macro>
+    </xacro:macro>
+    </xacro:if>
+
+<xacro:if value="${gazebo_version == 'gz'}">
+    <xacro:macro name="lidar_sensor" params="name">
+       <gazebo reference="${name}_link">
+        <sensor name="${name}" type="gpu_lidar">"
+            <ignition_frame_id>"${name}_link</ignition_frame_id>
+            <pose relative_to="${name}_link">0 0 0 0 0 0</pose>
+            <topic>${name}/scan</topic>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>100</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.04</min_angle> <!-- -60 degrees -->
+                        <max_angle>1.04</max_angle>  <!-- 60 degrees -->
+                    </horizontal>
+                    <vertical>
+                        <samples>32</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.436</min_angle> <!-- -25 degrees -->
+                        <max_angle>0.1308</max_angle>  <!-- 7.5 degrees -->
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.10</min>
+                    <max>20.0</max>
+                    <resolution>0.02</resolution>
+                </range>
+            </ray>
+            <always_on>1</always_on>
+            <visualize>true</visualize>
+        </sensor>
+    </gazebo>
+    </xacro:macro>
+    </xacro:if>
+
 
 <!-- Use the macro for each LiDAR -->
 <xacro:lidar_sensor name="lidar_front_left"/>

@@ -2,7 +2,8 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     
 
-    <!-- Plugin for ROS2 CONTROL -->
+    <!-- GAZEBO CLASSIC -->
+    <xacro:if value="${gazebo_version == 'classic'}">
     <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
             <robot_param>robot_description</robot_param>
@@ -16,14 +17,70 @@
           </ros> 
         </plugin>
     </gazebo>
+    </xacro:if>
+
+    <!-- GAZEBO IGNITION -->
+    <xacro:if value="${gazebo_version == 'ignition'}">
+    <gazebo>
+        <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+        <robot_param>robot_description</robot_param>
+        <robot_param_node>robot_state_publisher</robot_param_node>
+        <parameters>$(find deliverybot_controllers)/config/ackermann_controllers_config.yaml</parameters>
+        <ros>
+            <remapping>ackermann_steering_controller/reference:=cmd_vel_ack_stamped</remapping> 
+            <remapping>ackermann_steering_controller/odometry:=odom</remapping>
+            <remapping>ackermann_steering_controller/tf_odometry:=tf</remapping>
+            <robot_base_frame>base_link</robot_base_frame>
+          </ros> 
+        </plugin>
+    </gazebo>
+    </xacro:if>
+
+    <!-- GAZEBO GZ -->
+    <xacro:if value="${gazebo_version == 'gz'}">
+    <gazebo>
+        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <parameters>$(find deliverybot_controllers)/config/ackermann_controllers_config.yaml</parameters>
+         <ros> 
+            <remapping>ackermann_steering_controller/reference:=cmd_vel_ack_stamped</remapping> 
+            <remapping>ackermann_steering_controller/odometry:=odom</remapping>
+            <remapping>ackermann_steering_controller/tf_odometry:=tf</remapping>
+            <robot_base_frame>base_link</robot_base_frame>
+          </ros> 
+        </plugin>
+        <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu">
+        </plugin>
+    </gazebo>
+    </xacro:if>
+
 
     <!-- Ros2 control -->
-    <ros2_control name="GazeboSystem" type="system">
-        <hardware>
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </hardware>
+    <ros2_control name="Gazebo_${gazebo_version}_System" type="system">
+
+        <!-- GAZEBO CLASSIC-->
+        <xacro:if value="${gazebo_version == 'classic'}">
+            <hardware>
+                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </hardware>
+        </xacro:if>
+
+         <!-- GAZEBO IGNITION -->
+        <xacro:if value="${gazebo_version == 'ignition'}">
+            <hardware>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+            </hardware>
+        </xacro:if>
+
+        <!-- GAZEBO GZ-->
+        <xacro:if value="${gazebo_version == 'gz'}">
+            <hardware>
+                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            </hardware>
+        </xacro:if>
         
-        <!-- Steering wheels -->
+        <!-- COMMON INTERFACES  ===================================== -->
+ 
+         <!-- Steering wheels -->
         <joint name="steering_left_joint">
             <command_interface name="position">
                 <param name="min">${-PI/4}</param>
@@ -71,7 +128,6 @@
             <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
-       
 
 
     </ros2_control>

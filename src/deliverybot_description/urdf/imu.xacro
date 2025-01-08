@@ -32,6 +32,12 @@
         <sensor name="imu" type="imu">
             <always_on>true</always_on>
             <update_rate>100</update_rate>
+
+            <!-- GAZEBO IGNITION AND GZ-->
+            <xacro:if value="${gazebo_version == 'gz'}">
+              <gz_frame_id>imu_link</gz_frame_id>
+            </xacro:if>
+
             <imu>
             <angular_velocity>
                 <x>
@@ -74,7 +80,11 @@
                 </z>
             </linear_acceleration>
             </imu>
-            <plugin name="imu" filename="libgazebo_ros_imu_sensor.so"/> <!-- gazebo plugin-->
+
+            <!-- GAZEBO CLASSIC PLUGIN -->
+            <xacro:if value="${gazebo_version == 'classic'}">
+              <plugin name="imu" filename="libgazebo_ros_imu_sensor.so"/>
+            </xacro:if>
         </sensor>
     </gazebo>
 

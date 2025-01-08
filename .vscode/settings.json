@@ -1,0 +1,14 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/next/ros2_deliverybot_ws/install/deliverybot_teleop/local/lib/python3.10/dist-packages",
+        "/home/next/ros2_deliverybot_ws/install/deliverybot_sensors/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/next/ros2_deliverybot_ws/install/deliverybot_teleop/local/lib/python3.10/dist-packages",
+        "/home/next/ros2_deliverybot_ws/install/deliverybot_sensors/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
