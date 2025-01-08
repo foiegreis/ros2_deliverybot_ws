@@ -27,29 +27,43 @@ install(DIRECTORY
 
 #C++ --------------------------------------------------------
 
-#add_executable(pointcloud_to_laserscan_node src/pointcloud_to_laserscan_node.cpp)
-#ament_target_dependencies(pointcloud_to_laserscan_node rclcpp sensor_msgs pcl_conversions PCL)
-#target_link_libraries(pointcloud_to_laserscan_node ${PCL_LIBRARIES})
+add_executable(pointcloud_fusion_node src/pointcloud_fusion_node.cpp)
+ament_target_dependencies(pointcloud_fusion_node
+rclcpp
+sensor_msgs
+tf2_ros
+tf2_sensor_msgs
+pcl_conversions
+PCL)
+target_link_libraries(pointcloud_fusion_node ${PCL_LIBRARIES})
 
 
 install(TARGETS
-  #pointcloud_to_laserscan_node
+  pointcloud_fusion_node
   DESTINATION lib/${PROJECT_NAME}
  )
 
 
 #Py -----------------------------------------------------------
 
-ament_python_install_package(${PROJECT_NAME})
+# ament_python_install_package(${PROJECT_NAME})
 
 #install python executables
-install(PROGRAMS
-  deliverybot_sensors/pointcloud_fusion_node.py
+# install(PROGRAMS
+#   deliverybot_sensors/pointcloud_fusion_node.py
+#   DESTINATION lib/${PROJECT_NAME})
 
-
-  DESTINATION lib/${PROJECT_NAME})
+# ament_export_dependencies(
+#   rclpy
+#   sensor_msgs
+#   tf2_ros
+#   tf2_sensor_msgs
+#   pcl_conversions
+#   sensor_msgs_py
+#   PCL
+# )
 
 #--------------------------------------------------------------------
 # export dependencies
-ament_export_dependencies(${dependencies})
+
 ament_package()

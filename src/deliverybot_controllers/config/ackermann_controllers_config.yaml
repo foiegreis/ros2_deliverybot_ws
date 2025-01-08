@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 1000 # Hz
+    update_rate: 10 # Hz
     use_sim_time: true # For simulated robots
 
     joint_state_broadcaster:
@@ -22,14 +22,12 @@ ackermann_steering_controller:
 
     rear_wheels_names: ["wheel_rear_right_joint", "wheel_rear_left_joint"]
     front_wheels_names: ["steering_right_joint", "steering_left_joint"]
-    wheel_params_from_collision_mesh: true
 
     wheelbase: 0.663378 # Distance between the front and rear axles of the robot
     front_wheel_track: 1.413834 #1.353834 # Distance between the left and right front wheels
     rear_wheel_track: 1.413834 #  Distance between the left and right rear wheels
     front_wheels_radius: 0.226428 # Radius of the wheels
     rear_wheels_radius: 0.226428 # Radius of the wheels
-
     wheel_separation: 1.413834
     max_steering_angle: 0.785  # 45 degrees in radians
     min_steering_angle: -0.785
@@ -44,6 +42,7 @@ ackermann_steering_controller:
     cmd_type: "geometry_msgs/msg/TwistStamped"
 
     publish_rate: 50
+
 
     # NOISE ---------------------------------------------------------------------------------
     # Overall uncertainty in the odometry estimation based on the robot's kinematic model 

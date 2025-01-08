@@ -13,8 +13,10 @@
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
   <depend>tf2_ros</depend>
-  <depend>tf2_sensor_msgs</depend>
+  <build_depend>tf2_sensor_msgs</build_depend>
   <depend>numpy</depend>
+  <depend>pcl_conversions</depend>
+  <depend>pcl_msgs</depend> <!-- or libpcl-dev -->
 
   <export>
     <build_type>ament_cmake</build_type>

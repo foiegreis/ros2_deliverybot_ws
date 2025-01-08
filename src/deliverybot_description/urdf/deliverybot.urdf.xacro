@@ -1,9 +1,29 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="deliverybot_robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="deliverybot_sim">
 
     <!-- Launch args-->
-    <xacro:arg name="use_sensors" default="false"/>
+    
+    <xacro:arg name="gazebo_version" default="ignition"/>
+    <xacro:property name="gazebo_version" value="$(arg gazebo_version)"/>
+      
+    <!-- Gazebo Ignition sensor plugins-->
+    <xacro:if value="${gazebo_version == 'ignition'}">
+      <gazebo>
+        <plugin 
+          filename="libignition-gazebo-sensors-system.so" name="ignition::gazebo::systems::Sensors">
+          <render_engine>ogre2</render_engine>
+        </plugin>
+      </gazebo>
+    </xacro:if>
 
+
+    <!-- Gazebo gz sensor plugins-->
+    <xacro:if value="${gazebo_version == 'gz'}">
+      <gazebo>
+        <plugin 
+          filename="libgazebo_garden_plugin.so" name="gazebo_garden_plugin"/>
+      </gazebo>
+    </xacro:if>
 
     <!-- Robot Structure  -->
     <xacro:include filename="$(find deliverybot_description)/urdf/common_properties.xacro" />
@@ -15,13 +35,11 @@
     <xacro:include filename="$(find deliverybot_description)/urdf/lidar.xacro" />
     <xacro:include filename="$(find deliverybot_description)/urdf/depth_camera.xacro" />
 
-
     <!-- Frictions and Transmissions-->
     <xacro:include filename="$(find deliverybot_description)/urdf/gazebo_properties.xacro" />
 
     <!-- Ackermann Control -->
-    <xacro:include filename="$(find deliverybot_description)/urdf/robot_ros2_control.xacro"/>
+    <xacro:include filename="$(find deliverybot_description)/urdf/gazebo_ros2_control.xacro"/>
 
-
-    
+ 
 </robot>

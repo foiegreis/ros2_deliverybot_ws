@@ -1,0 +1,7 @@
+/**:
+  ros__parameters:
+    qos_overrides./scan.publisher.reliability: reliable
+    qos_overrides./imu.publisher.reliability: reliable
+    qos_overrides./camera/rgb/image_raw.publisher.reliability: reliable
+    qos_overrides./depth_camera/image.publisher.reliability: reliable
+    qos_overrides./depth_camera/points.publisher.reliability: reliable

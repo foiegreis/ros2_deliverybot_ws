@@ -12,6 +12,7 @@
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_ros2_control</exec_depend>
 
   <exec_depend>deliverybot_description</exec_depend>
 

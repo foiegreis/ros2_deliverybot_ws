@@ -26,31 +26,103 @@
         <origin xyz="0.011 0 0" rpy="${-PI/2} 0 ${-PI/2}"/>
     </joint>
 
-    <!-- **Higliting differences with normal camera-->
-    <gazebo reference="depth_camera_link">
-        <material>Gazebo/Red</material>
-        <sensor name="depth_camera" type="depth"> <!-- Depth camera--> 
-            <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
-            <update_rate>10</update_rate>
-            <camera>
-                <horizontal_fov>1.089</horizontal_fov>
+
+    <!-- GAZEBO CLASSIC -->
+    <xacro:if value="${gazebo_version == 'classic'}">
+        <gazebo reference="depth_camera_link">
+            <material>Gazebo/Red</material>
+            <sensor name="depth_camera" type="depth"> <!-- Depth camera--> 
+                <pose> 0 0 0 0 0 0 </pose>
+                <visualize>true</visualize>
+                <update_rate>10</update_rate>
+                <camera>
+                    <horizontal_fov>1.089</horizontal_fov>
+                    <image>
+                        <format>B8G8R8</format> <!-- HERE we swap the channels from  RGB to BGR-->
+                        <width>640</width>
+                        <height>480</height>
+                    </image>
+                    <clip>
+                        <near>0.05</near>
+                        <far>8.0</far>
+                    </clip>
+                </camera>
+                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                    <frame_name>depth_camera_optical_link</frame_name>
+                    <min_depth>0.1</min_depth> <!-- Minimum distance from the camera at which objects can be detected - filters out too close objects-->
+                    <max_depth>100.0</max_depth> <!-- Maximum distance from the camera at which objects can be detected - filters out too far objects-->
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:if>
+
+
+    <!-- GAZEBO IGNITION AND GZ -->
+    <xacro:if value="${gazebo_version == 'ignition'}">
+        <gazebo reference="depth_camera_link">
+            <sensor type="rgbd_camera" name="depth_camera_sensor">
+            <topic>depth_camera</topic>
+            <frame_id>depth_camera_optical_link</frame_id>
+            <ignition_frame_id>depth_camera_optical_link</ignition_frame_id>
+            <update_rate>20.0</update_rate>
+            <camera name="depth_camera">
+                <horizontal_fov>1.02974</horizontal_fov>
                 <image>
-                    <format>B8G8R8</format> <!-- HERE we swap the channels from  RGB to BGR-->
                     <width>640</width>
                     <height>480</height>
+                    <format>R8G8B8</format>
                 </image>
                 <clip>
-                    <near>0.05</near>
-                    <far>8.0</far>
+                    <near>0.02</near>
+                    <far>20</far>
                 </clip>
             </camera>
-            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                <frame_name>depth_camera_optical_link</frame_name>
-                <min_depth>0.1</min_depth> <!-- Minimum distance from the camera at which objects can be detected - filters out too close objects-->
-                <max_depth>100.0</max_depth> <!-- Maximum distance from the camera at which objects can be detected - filters out too far objects-->
-            </plugin>
-        </sensor>
-    </gazebo>
-    
+            <depth_camera>
+                <clip>
+                    <near>0.02</near>
+                    <far>20</far>
+                </clip>
+            </depth_camera>
+            <point_cloud>
+                <enabled>true</enabled>
+            </point_cloud>
+            <always_on>1</always_on>
+            <visualize>true</visualize>
+            </sensor>
+        </gazebo>
+    </xacro:if>
+
+    <xacro:if value="${gazebo_version == 'gz'}">
+        <gazebo reference="depth_camera_link">
+            <sensor type="rgbd_camera" name="depth_camera_sensor">
+            <topic>depth_camera</topic>
+            <frame_id>depth_camera_optical_link</frame_id>
+            <gz_frame_id>depth_camera_optical_link</gz_frame_id>
+            <update_rate>20.0</update_rate>
+            <camera name="depth_camera">
+                <horizontal_fov>1.02974</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                <near>0.02</near>
+                <far>20</far>
+                </clip>
+            </camera>
+            <depth_camera>
+                <clip>
+                    <near>0.02</near>
+                    <far>20</far>
+                </clip>
+            </depth_camera>
+            <point_cloud>
+                <enabled>true</enabled>
+            </point_cloud>
+            <always_on>1</always_on>
+            <visualize>true</visualize>
+            </sensor>
+        </gazebo>
+    </xacro:if>
 </robot>

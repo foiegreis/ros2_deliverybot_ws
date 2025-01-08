@@ -10,13 +10,13 @@ def generate_launch_description():
 
     pointcloud_fusion_node = Node(
         package="deliverybot_sensors",
-        executable="pointcloud_fusion_node.py",
+        executable="pointcloud_fusion_node",
         name="pointcloud_fusion"
     ) 
 
     pointcloud_to_laserscan = Node(
             package='pointcloud_to_laserscan',
-            executable='pointcloud_to_laserscan_node',
+            executable='pointcloud_to_laserscan',
             name='pointcloud_to_laserscan',
             remappings=[
                 ('cloud_in', '/fused_pointcloud'),
