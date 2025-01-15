@@ -157,7 +157,7 @@
     <xacro:macro name="lidar_sensor" params="name">
        <gazebo reference="${name}_link">
         <sensor name="${name}" type="gpu_lidar">"
-            <ignition_frame_id>"${name}_link</ignition_frame_id>
+            <gz_frame_id>"${name}_link</gz_frame_id>
             <pose relative_to="${name}_link">0 0 0 0 0 0</pose>
             <topic>${name}/scan</topic>
             <update_rate>10</update_rate>

@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable, TimerAction, LogInfo, OpaqueFunction, GroupAction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess, SetEnvironmentVariable, TimerAction, LogInfo, OpaqueFunction, GroupAction
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -108,14 +108,9 @@ def generate_launch_description():
         actions=[
 
             # Gazebo Classic server
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(
-                    os.path.join(gazebo_classic_dir, "launch", "gzserver.launch.py")
-                ),
-                launch_arguments={
-                    "world": "empty.world",
-                    "use_sim_time": use_sim_time
-                }.items()
+            ExecuteProcess(
+                cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so', '--world', world_path],
+                output='screen'
             ),
 
             # Gazebo Classic client

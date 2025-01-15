@@ -200,7 +200,7 @@ def generate_launch_description():
                 #lidar_fusion,
                 teleoperation,
                 twistmux_speed_monitoring,
-                twist_to_twist_stamped_and_safety_node,
+                #twist_to_twist_stamped_and_safety_node,
                 #local_localization
                 #graph_slam
                 

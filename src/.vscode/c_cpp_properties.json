@@ -1,0 +1,35 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/next/ros2_deliverybot_ws/install/pointcloud_to_laserscan/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_9/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_8/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_7/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_6/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_5/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_4/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_3/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_2/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_14/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_12/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_11/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_10/include/**",
+        "/home/next/ros2_control_demos/install/ros2_control_demo_example_1/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/next/ros2_deliverybot_ws/src/pointcloud_to_laserscan/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

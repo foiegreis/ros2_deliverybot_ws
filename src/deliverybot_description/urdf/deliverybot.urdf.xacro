@@ -3,7 +3,7 @@
 
     <!-- Launch args-->
     
-    <xacro:arg name="gazebo_version" default="ignition"/>
+    <xacro:arg name="gazebo_version" default="classic"/>
     <xacro:property name="gazebo_version" value="$(arg gazebo_version)"/>
       
     <!-- Gazebo Ignition sensor plugins-->
